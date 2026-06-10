@@ -8,9 +8,9 @@ class DigitalCatalog(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char(string="Nombre del catálogo", required=True, tracking=True)
-    slug = fields.Char(string="Slug publico", required=True, copy=false, tracking=True)
+    slug = fields.Char(string="Slug publico", required=True, copy=False, tracking=True)
     active = fields.Boolean(default=True, tracking=True)
-    company_id = fields.Many2many('res.company', string="Company", default=lambda self: self.env.company, required=True)
+    company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company, required=True)
     product_ids = fields.Many2many('product.template', string='Products')
     show_prices = fields.Boolean(string='Show Prices', default=True)
     show_stock = fields.Boolean(string='Show Stock', default=False)

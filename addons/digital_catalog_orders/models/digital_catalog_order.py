@@ -25,7 +25,7 @@ class DigitalCatalogOrder(models.Model):
         ],string='Status', default='draft', tracking=True)
     sale_order_id = fields.Many2one('sale.order', string='Sale Quotation',readonly=True)
     total_amount = fields.Float(string='Total', compute='_compute_total_amount', store=True)
-    company_id = fields.Many2one(related='catalog_id.company_id', store=True, readonly=True)
+    company_id = fields.Many2one('res.company', string='Company', related='catalog_id.company_id', store=True, readonly=True)
 
     @api.depends('line_ids.subtotal')
     def _compute_total_amount(self):

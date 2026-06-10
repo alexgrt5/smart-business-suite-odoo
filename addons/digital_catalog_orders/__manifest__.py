@@ -21,9 +21,9 @@ Los clientes pueden explorar productos y realizar pedidos sin necesidad de una p
     'data': [
         'security/ir.model.access.csv',
         'data/sequence.xml',
-        'views/menu_views.xml',
         'views/digital_catalog_views.xml',
         'views/digital_catalog_order_views.xml',
+        'views/menu_views.xml',
         'views/website_templates.xml',
     ],
     'assets': {
