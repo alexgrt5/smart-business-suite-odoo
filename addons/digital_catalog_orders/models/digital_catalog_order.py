@@ -8,24 +8,24 @@ class DigitalCatalogOrder(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'create_date desc'
 
-    name = fields.Char(string='Order Reference', required=True, copy=False, readonly=True, default='New')
-    catalog_id = fields.Many2one('digital.catalog',string='Catalog', required=True, ondelete='cascade')
-    partner_name = fields.Char(string='Customer Name', required=True)
-    partner_phone = fields.Char(string='Phone', required=True)
-    partner_email = fields.Char(string='Email')
-    delivery_type = fields.Selection([('pickup', 'Pickup'),('delivery', 'Delivery')],string='Delivery Type', default='pickup', required=True)
-    delivery_address = fields.Text(string='Delivery Address')
-    notes = fields.Text(string='Notes')
-    line_ids = fields.One2many('digital.catalog.order.line','order_id', string='Order Lines')
+    name = fields.Char(string='Referencia del pedido', required=True, copy=False, readonly=True, default='Nuevo')
+    catalog_id = fields.Many2one('digital.catalog', string='Catálogo', required=True, ondelete='cascade')
+    partner_name = fields.Char(string='Nombre del cliente', required=True)
+    partner_phone = fields.Char(string='Teléfono', required=True)
+    partner_email = fields.Char(string='Correo electrónico')
+    delivery_type = fields.Selection([('pickup', 'Recoger en tienda'), ('delivery', 'Entrega a domicilio')], string='Tipo de entrega', default='pickup', required=True)
+    delivery_address = fields.Text(string='Dirección de entrega')
+    notes = fields.Text(string='Notas')
+    line_ids = fields.One2many('digital.catalog.order.line', 'order_id', string='Líneas del pedido')
     state = fields.Selection([
-            ('draft', 'Draft'),
-            ('confirmed', 'Confirmed'),
-            ('converted', 'Converted to Quotation'),
-            ('cancelled', 'Cancelled')
-        ],string='Status', default='draft', tracking=True)
-    sale_order_id = fields.Many2one('sale.order', string='Sale Quotation',readonly=True)
+        ('draft', 'Borrador'),
+        ('confirmed', 'Confirmado'),
+        ('converted', 'Convertido a cotización'),
+        ('cancelled', 'Cancelado')
+    ], string='Estado', default='draft', tracking=True)
+    sale_order_id = fields.Many2one('sale.order', string='Cotización de venta', readonly=True)
     total_amount = fields.Float(string='Total', compute='_compute_total_amount', store=True)
-    company_id = fields.Many2one('res.company', string='Company', related='catalog_id.company_id', store=True, readonly=True)
+    company_id = fields.Many2one('res.company', string='Compañía', related='catalog_id.company_id', store=True, readonly=True)
 
     @api.depends('line_ids.subtotal')
     def _compute_total_amount(self):

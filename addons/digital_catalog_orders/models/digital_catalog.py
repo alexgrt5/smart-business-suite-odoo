@@ -8,19 +8,19 @@ class DigitalCatalog(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char(string="Nombre del catálogo", required=True, tracking=True)
-    slug = fields.Char(string="Slug publico", required=True, copy=False, tracking=True)
-    active = fields.Boolean(default=True, tracking=True)
-    company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company, required=True)
-    product_ids = fields.Many2many('product.template', string='Products')
-    show_prices = fields.Boolean(string='Show Prices', default=True)
-    show_stock = fields.Boolean(string='Show Stock', default=False)
-    allow_orders = fields.Boolean(string='Allow Orders', default=True)
-    minimum_order_amount = fields.Float(string='Minimum Order Amount', default=0.0)
-    whatsapp_number = fields.Char(string='WhatsApp Number')
-    primary_color = fields.Char(string='Primary Color', default='#111827')
-    description = fields.Text(string='Description')
-    public_url = fields.Char(string='Public URL', compute='_compute_public_url')
-    order_count = fields.Integer(string='Orders',compute='_compute_order_count')
+    slug = fields.Char(string="Slug público", required=True, copy=False, tracking=True)
+    active = fields.Boolean(string="Activo", default=True, tracking=True)
+    company_id = fields.Many2one('res.company', string='Compañía', default=lambda self: self.env.company, required=True)
+    product_ids = fields.Many2many('product.template', string='Productos')
+    show_prices = fields.Boolean(string='Mostrar precios', default=True)
+    show_stock = fields.Boolean(string='Mostrar stock', default=False)
+    allow_orders = fields.Boolean(string='Permitir pedidos', default=True)
+    minimum_order_amount = fields.Float(string='Monto mínimo de pedido', default=0.0)
+    whatsapp_number = fields.Char(string='Número de WhatsApp')
+    primary_color = fields.Char(string='Color principal', default='#111827')
+    description = fields.Text(string='Descripción')
+    public_url = fields.Char(string='URL pública', compute='_compute_public_url')
+    order_count = fields.Integer(string='Pedidos', compute='_compute_order_count')
 
     _sql_constraints = [('digital_catalog_slug_unique', 'unique(slug)', 'The public slug must be unique.')]
 
