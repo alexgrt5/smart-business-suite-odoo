@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_digital_catalog_tree" model="ir.ui.view">
+        <field name="name">digital.catalog.tree</field>
+        <field name="model">digital.catalog</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="slug"/>
+                <field name="public_url"/>
+                <field name="allow_orders"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_digital_catalog_form" model="ir.ui.view">
+        <field name="name">digital.catalog.form</field>
+        <field name="model">digital.catalog</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="action_view_orders"
+                        type="object"
+                        string="View Orders"
+                        class="oe_highlight"
+                    />
+                </header>
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="action_view_orders"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-shopping-cart"
+                        >
+                            <field
+                                name="order_count"
+                                widget="statinfo"
+                                string="Orders"
+                            />
+                        </button>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="slug"/>
+                            <field name="public_url" readonly="1"/>
+                            <field name="company_id"/>
+                            <field name="active"/>
+                        </group>
+
+                        <group>
+                            <field name="show_prices"/>
+                            <field name="show_stock"/>
+                            <field name="allow_orders"/>
+                            <field name="minimum_order_amount"/>
+                            <field name="whatsapp_number"/>
+                            <field name="primary_color"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Products">
+                            <field name="product_ids" widget="many2many_tags"/>
+                        </page>
+
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_digital_catalog" model="ir.actions.act_window">
+        <field name="name">Catalogs</field>
+        <field name="res_model">digital.catalog</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

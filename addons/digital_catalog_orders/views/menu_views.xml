@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem
+        id="menu_digital_catalog_root"
+        name="Digital Catalog"
+        sequence="10"/>
+
+    <menuitem
+        id="menu_digital_catalog_catalogs"
+        name="Catalogs"
+        parent="menu_digital_catalog_root"
+        action="action_digital_catalog"
+        sequence="10"/>
+
+    <menuitem
+        id="menu_digital_catalog_orders"
+        name="Orders"
+        parent="menu_digital_catalog_root"
+        action="action_digital_catalog_order"
+        sequence="20"/>
+</odoo>
