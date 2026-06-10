@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_digital_catalog_order_tree" model="ir.ui.view">
+        <field name="name">digital.catalog.order.tree</field>
+        <field name="model">digital.catalog.order</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="catalog_id"/>
+                <field name="partner_name"/>
+                <field name="partner_phone"/>
+                <field name="delivery_type"/>
+                <field name="total_amount"/>
+                <field name="state"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_digital_catalog_order_form" model="ir.ui.view">
+        <field name="name">digital.catalog.order.form</field>
+        <field name="model">digital.catalog.order</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="action_confirm"
+                        type="object"
+                        string="Confirm"
+                        class="oe_highlight"
+                        invisible="state != 'draft'"
+                    />
+
+                    <button
+                        name="action_convert_to_sale_order"
+                        type="object"
+                        string="Convert to Quotation"
+                        class="oe_highlight"
+                        invisible="state not in ['draft', 'confirmed']"
+                    />
+
+                    <button
+                        name="action_cancel"
+                        type="object"
+                        string="Cancel"
+                        invisible="state == 'cancelled'"
+                    />
+
+                    <button
+                        name="action_reset_to_draft"
+                        type="object"
+                        string="Reset to Draft"
+                        invisible="state != 'cancelled'"
+                    />
+
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,confirmed,converted,cancelled"
+                    />
+                </header>
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="catalog_id"/>
+                            <field name="partner_name"/>
+                            <field name="partner_phone"/>
+                            <field name="partner_email"/>
+                            <field name="company_id"/>
+                        </group>
+
+                        <group>
+                            <field name="delivery_type"/>
+                            <field name="delivery_address"/>
+                            <field name="notes"/>
+                            <field name="sale_order_id" readonly="1"/>
+                            <field name="total_amount" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Products">
+                            <field name="line_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="price_unit"/>
+                                    <field name="subtotal" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_digital_catalog_order" model="ir.actions.act_window">
+        <field name="name">Catalog Orders</field>
+        <field name="res_model">digital.catalog.order</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
