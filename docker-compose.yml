@@ -1,0 +1,40 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: sbs_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo
+    volumes:
+      - sbs_postgres_data:/var/lib/postgresql/data
+    networks:
+      - sbs_network
+
+  odoo:
+    image: odoo:17
+    container_name: sbs_odoo
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    ports:
+      - "8069:8069"
+    environment:
+      HOST: postgres
+      USER: odoo
+      PASSWORD: odoo
+    volumes:
+      - ./addons:/mnt/extra-addons
+      - ./config:/etc/odoo
+      - sbs_odoo_data:/var/lib/odoo
+    networks:
+      - sbs_network
+
+volumes:
+  sbs_postgres_data:
+  sbs_odoo_data:
+
+networks:
+  sbs_network:
+    driver: bridge
