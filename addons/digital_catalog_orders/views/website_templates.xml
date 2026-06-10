@@ -1,3 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+
+    <template id="catalog_page" name="Catalog Page">
+
+        <t t-call="website.layout">
+
+            <div class="container mt-5 mb-5">
+
+                <div class="text-center mb-4">
+
+                    <h1>
+                        <t t-esc="catalog.name"/>
+                    </h1>
+
+                    <p>
+                        <t t-esc="catalog.description"/>
+                    </p>
+
+                </div>
+
+                <div class="row">
+
+                    <t t-foreach="catalog.product_ids" t-as="product">
+
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+
+                            <div class="card h-100">
+
+                                <div class="card-body">
+
+                                    <h5>
+                                        <t t-esc="product.name"/>
+                                    </h5>
+
+                                    <t t-if="catalog.show_prices">
+
+                                        <p class="fw-bold">
+
+                                            $
+                                            <t t-esc="product.list_price"/>
+
+                                        </p>
+
+                                    </t>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </t>
+
+                </div>
+
+            </div>
+
+        </t>
+
+    </template>
+
 </odoo>
